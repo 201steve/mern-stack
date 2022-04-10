@@ -4,6 +4,7 @@ const port = 8000;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { User } = require("./models/User");
+const config = require("./config/key");
 
 //application / x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -11,9 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.USER_KEY}:${process.env.USER}@toyproject.ytjv2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-  )
+  .connect(config.mongoURI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
